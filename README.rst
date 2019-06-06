@@ -9,10 +9,10 @@ Requirements
 
 To use this you need to have the following installed in your Linux based system:
 
-  - ClamAV
-  - ssmtp
-  - heirloom-mailx or mailx
-  - ClamAV-Freshclam
+- ClamAV
+- ssmtp
+- heirloom-mailx or mailx
+- ClamAV-Freshclam
 
 Setup
 =====
