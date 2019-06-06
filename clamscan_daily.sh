@@ -1,14 +1,14 @@
 #!/bin/bash
 #
-# written by Joseph Bernadas (http://jbernadas.com)
+# Title: ClamScan Daily
+# Written by Joseph Bernadas (http://jbernadas.com)
 # 05/31/2019 (dd/mm/yy)
 
-LOGFILE="/var/log/clamav/clamav-$(date +'%Y-%m-%d-%H%M').log";
+LOGFILE="/var/log/clamav/clamscan-daily-$(date +'%Y-%m-%d-%H%M').log";
 HOST="$(hostname --long)";
 SERVERNAME="Ubuntu-Database server";
-EMAIL_FROM="clamav-daily@"$HOST"";
-EMAIL_TO="joseph.bernadas@esc2.us";
-#EMAIL_TOO="aaron.bockholt@esc2.us";
+EMAIL_FROM="clamscan-daily@"$HOST"";
+EMAIL_TO="<your@email.here>";
 # You can add multiple directories separated by white space, i.e., "/var/www /var/lib/mysql /home/user"
 DIRTOSCAN="/var/www";
 # How many days of this log to keep
@@ -43,7 +43,6 @@ if [ "$TODAY" == "6" ];then
         if [ "$MALWARE" -ne "0" ]; then
                 echo -e "\n"$MALWAREMSG""$S" directory."
                 echo -e "$EMAIL_MSG"|mail -a "$LOGFILE" -s "ClamAV: Malware Found" -r "$EMAIL_FROM" "$EMAIL_TO";
-                #echo "$EMAIL_MSG"|mail -a "$LOGFILE" -s "ClamAV: Malware Found" -r "$EMAIL_FROM" "$EMAIL_TOO";
         else
                 echo -e "\n"$NOMALWAREMSG""$S" directory.";
         fi
@@ -61,7 +60,6 @@ else
                 if [ "$MALWARE" -ne "0" ]; then
                         echo -e "\n"$MALWAREMSG""$S" directory."
                         echo -e "$EMAIL_MSG"|mail -a "$LOGFILE" -s "ClamAV: Malware Found" -r "$EMAIL_FROM" "$EMAIL_TO";
-                        #echo "$EMAIL_MSG"|mail -a "$LOGFILE" -s "ClamAV: Malware Found" -r "$EMAIL_FROM" "$EMAIL_TOO";
                 else
                         echo -e "\n"$NOMALWAREMSG""$S" directory.";
                 fi
@@ -69,5 +67,7 @@ else
         done
 fi
 
-echo -e "\nThe script has finished."
+echo -e "\nClamScan Daily script has finished."
+tail -1 -f /var/log/clamav/clamscan-daily-*.log
+
 exit 0;
