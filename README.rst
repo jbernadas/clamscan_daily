@@ -32,7 +32,7 @@ On Centos:
   # yum install epel-release
   # yum install clamav clamav-update
 
-On Debian/Ubuntu, start ClamAV virus database updater:
+On Debian/Ubuntu, start Freshclam, the ClamAV virus database updater:
 ::
   # service clamav-freshclam start
 

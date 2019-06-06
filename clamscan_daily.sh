@@ -13,7 +13,7 @@ EMAIL_TO="<your@email.here>";
 DIRTOSCAN="/var/www";
 # How many days of this log to keep
 LOGONLYNUMDAYS=10;
-# Change this to any number from 1-7, representing the days of the week (1 is Monday, 2 is Tuesday...)
+# Change this to any number from 1-7 (1 is Monday, 2 is Tuesday...), representing the day of the week you want to perform a full-system-scan
 FULLSYSTEMSCAN="6"; # Saturday
 MALWAREMSG="MALWARE found in ";
 NOMALWAREMSG="No malware found in ";
@@ -31,7 +31,7 @@ tail -1 /var/log/clamav/freshclam.log;
 TODAY=$(date +%u);
 
 # Delete files older than LOGONLYNUMDAYS
-find /var/log/clamav/ -type f -mtime +"$LOGONLYNUMDAYS" -name 'clamav-20*.log' -execdir rm -- '{}' \;
+find /var/log/clamav/ -type f -mtime +"$LOGONLYNUMDAYS" -name 'clamscan-daily-20*.log' -execdir rm -- '{}' \;
 
 if [ "$TODAY" == "$FULLSYSTEMSCAN" ];then
         echo "Started a full weekend scan.";
