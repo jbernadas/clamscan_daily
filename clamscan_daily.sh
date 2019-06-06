@@ -13,6 +13,8 @@ EMAIL_TO="<your@email.here>";
 DIRTOSCAN="/var/www";
 # How many days of this log to keep
 LOGONLYNUMDAYS=10;
+# Change this to any number from 1-7, representing the days of the week (1 is Monday, 2 is Tuesday...)
+FULLSYSTEMSCAN="6"; # Saturday
 MALWAREMSG="MALWARE found in ";
 NOMALWAREMSG="No malware found in ";
 EMAIL_MSG="IMMEDIATE ATTENTION REQUIRED!!! \nMalware found during today's ClamAV scan of ${SERVERNAME}, please see the attached log file for details.";
@@ -31,7 +33,7 @@ TODAY=$(date +%u);
 # Delete files older than LOGONLYNUMDAYS
 find /var/log/clamav/ -type f -mtime +"$LOGONLYNUMDAYS" -name 'clamav-20*.log' -execdir rm -- '{}' \;
 
-if [ "$TODAY" == "6" ];then
+if [ "$TODAY" == "$FULLSYSTEMSCAN" ];then
         echo "Started a full weekend scan.";
         # be nice to others while scanning the entire root
         nice -n5 clamscan -ri / --exclude-dir=/sys/ &>"$LOGFILE";
