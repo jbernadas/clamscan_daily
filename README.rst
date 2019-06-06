@@ -11,8 +11,9 @@ To use this you need to have the following installed in your Linux based system:
 
 - ClamAV
 - ssmtp
-- heirloom-mailx or mailx
-- ClamAV-Freshclam
+- heirloom-mailx or mailx 
+- ClamAV-Freshclam 
+- unrar (needed by ClamAV)
 
 Setup
 =====
@@ -41,5 +42,5 @@ Or you can also use the following on Debian/Ubuntu machines:
 
 Invoking the above commands will run freshclam in daemon mode, meaning it will always be running in the background. To confirm it is running, issue the following:
 ::
-  # ps -ef | grep fresh | grep clama
-  clamav 
+  # ps -ef | grep fresh | grep clam
+  clamav   16235     1  0 Jun05 ?        00:00:05 /usr/bin/freshclam -d --foreground=true
