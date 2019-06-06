@@ -40,7 +40,7 @@ Or you can also use the following on Debian/Ubuntu machines:
 ::
  # /etc/init.d/clamav-freshclam start
 
-Invoking the above commands will run freshclam in daemon mode, meaning it will always be running in the background. To confirm it is running, issue the following:
+Invoking the above commands will run freshclam in daemon mode, meaning it will always be running in the background. To confirm it is running, issue the following command and look for a similar output below it:
 ::
   # ps -ef | grep fresh | grep clam
   clamav   16235     1  0 Jun05 ?        00:00:05 /usr/bin/freshclam -d --foreground=true
