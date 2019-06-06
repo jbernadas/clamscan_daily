@@ -2,7 +2,7 @@
 ClamScan Daily
 ==============
 
-A Bash script for starting an automated ClamAV scan and emailing the results. 
+A Bash script for running an automated ClamAV scan and emailing the scan results. The script uses the Freshclam database and runs a clamscan to check for trojans, viruses and malware on a specified directory. The scan will be performed once daily on any number of specified directories from Sunday to Friday, and do a full system scan on Saturdays. Also included are instructions on how to configure CRON and SSMTP.
 
 Requirements
 ============
