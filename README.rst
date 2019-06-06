@@ -6,6 +6,7 @@ A Bash script for starting an automated ClamAV scan and emailing the results.
 
 Requirements
 ============
+
 To use this you need to have the following installed in your Linux based system:
   - ClamAV
   - ssmtp
@@ -14,6 +15,7 @@ To use this you need to have the following installed in your Linux based system:
 
 Setup
 =====
+
 First install ClamAV by either building it from source () or use your Linux package manager. Using your Linux distros package manager to install ClamAV is quick and easy, but one downside is you get an older version of its scanning engine. Building from source takes a more involved process, but I think it is better.
 
 Installing ClamAV and ClamAV-Freshclam
