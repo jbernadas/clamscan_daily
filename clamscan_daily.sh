@@ -42,7 +42,7 @@ if [ "$TODAY" == "$FULLSYSTEMSCAN" ];then
         MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
 
         # if the value is not equal to zero, send an email with the log file attached
-        if [ "$MALWARE" -ne "0" ]; then
+        if [[ "$MALWARE" -ne "0" ]]; then
                 echo -e "\n"$MALWAREMSG""$S" directory."
                 echo -e "$EMAIL_MSG"|mail -a "$LOGFILE" -s "ClamAV: Malware Found" -r "$EMAIL_FROM" "$EMAIL_TO";
         else
@@ -59,7 +59,7 @@ else
                 MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
 
                 # if the value is not equal to zero, send an email with the log file attached
-                if [ "$MALWARE" -ne "0" ]; then
+                if [[ "$MALWARE" -ne "0" ]]; then
                         echo -e "\n"$MALWAREMSG""$S" directory."
                         echo -e "$EMAIL_MSG"|mail -a "$LOGFILE" -s "ClamAV: Malware Found" -r "$EMAIL_FROM" "$EMAIL_TO";
                 else
