@@ -1,12 +1,12 @@
 #!/bin/bash
 #
 # Title: ClamScan Daily
-# Written by Joseph Bernadas (http://jbernadas.com)
+# Author: Joseph Bernadas (http://jbernadas.com)
 # 05/31/2019 (dd/mm/yy)
 
 LOGFILE="/var/log/clamav/clamscan-daily-$(date +'%Y-%m-%d-%H%M').log";
 HOST="$(hostname --long)";
-SERVERNAME="Ubuntu-Database server";
+SERVERNAME="<servername-here";
 EMAIL_FROM="clamscan-daily@"$HOST"";
 EMAIL_TO="<your@email.here>";
 # You can add multiple directories separated by white space, i.e., "/var/www /var/lib/mysql /home/user"
@@ -14,7 +14,7 @@ DIRTOSCAN="/var/www";
 # How many days of this log to keep
 LOGONLYNUMDAYS=10;
 # Change this to any number from 1-7 (1 is Monday, 2 is Tuesday...), representing the day of the week you want to perform a full-system-scan
-FULLSYSTEMSCAN="6"; # Saturday
+FULLSYSTEMSCAN="7"; # Sunday
 MALWAREMSG="MALWARE found in ";
 NOMALWAREMSG="No malware found in ";
 EMAIL_MSG="IMMEDIATE ATTENTION REQUIRED!!! \nMalware found during today's ClamAV scan of ${SERVERNAME}, please see the attached log file for details.";
@@ -22,11 +22,11 @@ EMAIL_MSG="IMMEDIATE ATTENTION REQUIRED!!! \nMalware found during today's ClamAV
 # Check for mail installation
 type mail >/dev/null 2>&1 || { echo >&2 "I require mail but it's not installed. Aborting."; exit 1; };
 
-# Look for info about last ClamAV database update
-echo "Looking for latest ClamAV database update...";
-echo "Found latest ClamAV database from:";
-# Show the date of last database update from freshclam.log
-tail -1 /var/log/clamav/freshclam.log;
+# Starting the ClamScan-Daily script
+echo -e "Starting ClamScan-Daily in ${SERVERNAME}...\n";
+echo "Downloading the latest ClamAV virus database:"
+# Download the latest ClamAV virus database
+sudo freshclam
 
 TODAY=$(date +%u);
 
@@ -50,9 +50,9 @@ if [ "$TODAY" == "$FULLSYSTEMSCAN" ];then
         fi
 
 else
-        for S in ${DIRTOSCAN}; do
+        for S in ${DIRTOSCAN}; do                
                 DIRSIZE=$(du -sh "$S"  2>/dev/null|cut -f1);
-                echo -e "\nStarted daily scan of "$S" directory in ${SERVERNAME}.\nAmount of data to be scanned is "$DIRSIZE".";
+                echo -e "\nStarted daily scan of "$S" directory. Amount of data to be scanned is "$DIRSIZE".";
                 clamscan -ri "$S" &>"$LOGFILE";
 
                 # get the value of "Infected lines"
@@ -70,6 +70,5 @@ else
 fi
 
 echo -e "\nClamScan Daily script has finished."
-tail -1 -f /var/log/clamav/clamscan-daily-*.log
 
 exit 0;
