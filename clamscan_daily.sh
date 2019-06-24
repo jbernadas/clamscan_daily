@@ -36,7 +36,7 @@ find /var/log/clamav/ -type f -mtime +"$LOGONLYNUMDAYS" -name 'clamscan-daily-20
 if [ "$TODAY" == "$FULLSYSTEMSCAN" ];then
         echo "Started a full weekend scan.";
         # be nice to others while scanning the entire root
-        nice -n5 clamscan -ri / --exclude-dir=/sys/ &>"$LOGFILE";
+        sudo nice -n5 clamscan -ri / --exclude-dir=/sys/ &>"$LOGFILE";
 
         # get the value of "Infected lines"
         MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
@@ -53,7 +53,7 @@ else
         for S in ${DIRTOSCAN}; do                
                 DIRSIZE=$(du -sh "$S"  2>/dev/null|cut -f1);
                 echo -e "\nStarted daily scan of "$S" directory. Amount of data to be scanned is "$DIRSIZE".";
-                clamscan -ri "$S" &>"$LOGFILE";
+                sudo clamscan -ri "$S" &>"$LOGFILE";
 
                 # get the value of "Infected lines"
                 MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
