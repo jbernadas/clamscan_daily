@@ -6,7 +6,7 @@
 
 LOGFILE="/var/log/clamav/clamscan-daily-$(date +'%Y-%m-%d-%H%M').log";
 HOST="$(hostname --long)";
-SERVERNAME="<servername-here";
+SERVERNAME="<servername-here>";
 EMAIL_FROM="clamscan-daily@"$HOST"";
 EMAIL_TO="<your@email.here>";
 # You can add multiple directories separated by white space, i.e., "/var/www /var/lib/mysql /home/user"
